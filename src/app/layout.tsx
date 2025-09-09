@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
+import { Brackets, Box } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Provider } from "@/components/context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +27,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          // enableSystem
+          forcedTheme="dark"
+          disableTransitionOnChange
+        >
+          <Provider>
+            <header className="border-b-dark-gray relative z-50 h-20 border-b px-2.5 lg:px-0">
+              <div className="border-r-dark-gray border-l-dark-gray max-w-5xl flex h-20 items-center border mx-auto px-4">
+                <div className="flex w-full items-center justify-between py-3">
+                  <div className="flex items-center gap-2 text-foreground text-3xl tracking-tight md:text-5xl font-semibold relative">
+                    <Brackets className="size-12" strokeWidth={1} />
+                    <Box className="absolute inset-0 m-auto size-6" />
+                  </div>
+                </div>
+              </div>
+            </header>
+            {children}
+          </Provider>
+          <TailwindIndicator />
+        </ThemeProvider>
       </body>
     </html>
   );
