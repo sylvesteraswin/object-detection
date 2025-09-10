@@ -4,12 +4,14 @@ export class TransformerWorkerClient {
   private worker: Worker;
 
   constructor() {
-    this.worker = new Worker(
-      new URL("../app/workers/transformer.worker.ts", import.meta.url),
-      {
-        type: "module",
-      }
+    const workerFilePath = new URL(
+      "../app/workers/transformer.worker.ts",
+      import.meta.url
     );
+    console.log("Worker Path: ", workerFilePath);
+    this.worker = new Worker(workerFilePath, {
+      type: "module",
+    });
   }
 
   loadModel(): Promise<void> {
