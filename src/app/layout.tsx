@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Brackets, Box } from "lucide-react";
+import { Brackets, Box, Github } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Provider } from "@/components/context";
+import { PersonalContact } from "@/components/personal-contact";
+import { Button } from "@/components/ui/button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,7 +52,28 @@ export default function RootLayout({
                 </div>
               </div>
             </header>
-            {children}
+            <main>{children}</main>
+            <footer className="stext-foreground px-2.5 lg:px-0">
+              <div className="max-w-5xl mx-auto">
+                <div className="max-w-5xl mx-auto flex items-center justify-between gap-8 overflow-hidden border-r border-b border-l px-6 py-4 md:px-16">
+                  <PersonalContact />
+                  <div className="flex flex-col">
+                    <div className="text-sm font-medium text-secondary-foreground flex items-center gap-1">
+                      <Button variant={"link"} size={"sm"} asChild>
+                        <Link
+                          href="https://github.com/sylvesteraswin/object-detection"
+                          target="_blank"
+                        >
+                          <span className="flex items-center gap-1">
+                            <Github className="size-4" /> Github
+                          </span>
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </footer>
           </Provider>
           <TailwindIndicator />
         </ThemeProvider>
